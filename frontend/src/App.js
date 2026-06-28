@@ -31,6 +31,7 @@ export default function App() {
   const { tasks, stats, loading, error, createTask, updateTask, updateStatus, deleteTask } = useTasks(apiFilters);
 
   // Debounce search to avoid too many API calls
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSetApiFilters = useCallback(
     debounce((f) => setApiFilters(f), 350),
     []

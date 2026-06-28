@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { taskApi } from "../utils/api";
 import { useToast } from "../context/ToastContext";
 
@@ -8,7 +8,6 @@ export const useTasks = (filters) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { addToast } = useToast();
-  const abortRef = useRef(null);
 
   const fetchTasks = useCallback(async () => {
     setLoading(true);
@@ -34,8 +33,11 @@ export const useTasks = (filters) => {
 
   useEffect(() => {
     fetchTasks();
-    fetchStats();
   }, [fetchTasks]);
+
+  useEffect(() => {
+    fetchStats();
+  }, [fetchStats]);
 
   const createTask = useCallback(async (data) => {
     const res = await taskApi.create(data);
